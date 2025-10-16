@@ -100,15 +100,13 @@ public partial class MainForm : Form
 
     private void SaveAs()
     {
-        using (var d = new SaveFileDialog { Filter = "Text Files|*.txt|All Files|*.*" })
+        using var d = new SaveFileDialog { Filter = "Text Files|*.txt|All Files|*.*" };
+        if (d.ShowDialog() == DialogResult.OK)
         {
-            if (d.ShowDialog() == DialogResult.OK)
-            {
-                path = d.FileName;
-                File.WriteAllText(path, box.Text);
-                Text = $"FastNote - {Path.GetFileName(path)}";
-                dirty = false;
-            }
+            path = d.FileName;
+            File.WriteAllText(path, box.Text);
+            Text = $"FastNote - {Path.GetFileName(path)}";
+            dirty = false;
         }
     }
 
